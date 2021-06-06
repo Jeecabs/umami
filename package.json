@@ -35,7 +35,8 @@
     "download-country-names": "node scripts/download-country-names.js",
     "loadtest": "node scripts/loadtest.js",
     "loadtest:medium": "node scripts/loadtest.js --weight=medium",
-    "loadtest:heavy": "node scripts/loadtest.js --weight=heavy --verbose"
+    "loadtest:heavy": "node scripts/loadtest.js --weight=heavy --verbose",
+    "seed": "node prisma/seed.js"
   },
   "lint-staged": {
     "**/*.js": [
@@ -58,6 +59,7 @@
   "dependencies": {
     "@prisma/client": "2.21.2",
     "@reduxjs/toolkit": "^1.5.1",
+    "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
     "chalk": "^4.1.1",
     "chart.js": "^2.9.4",
