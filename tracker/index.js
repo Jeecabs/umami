@@ -43,8 +43,7 @@ import { removeTrailingSlash } from '../lib/url';
 
   /* Collect metrics */
 
-  const post = (url, data, callback) => {
-    console.log(`Sending payload ${JSON.stringify(data)}`);
+  const post = (url, data, callback) =>
     fetch(url, {
       method: 'POST',
       headers: {
@@ -58,7 +57,6 @@ import { removeTrailingSlash } from '../lib/url';
       .catch(error => {
         console.log(error);
       });
-  };
 
   const collect = (type, params, uuid) => {
     if (disableTracking) return;
