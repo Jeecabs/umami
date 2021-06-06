@@ -44,7 +44,7 @@ import { removeTrailingSlash } from '../lib/url';
   /* Collect metrics */
 
   const post = (url, data, callback) => {
-    console.log(`Sending payload ${data}`);
+    console.log(`Sending payload ${JSON.stringify(data)}`);
     const req = new XMLHttpRequest();
     req.open('POST', url, true);
     req.setRequestHeader('Content-Type', 'application/json');
