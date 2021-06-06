@@ -45,17 +45,19 @@ import { removeTrailingSlash } from '../lib/url';
 
   const post = (url, data, callback) => {
     console.log(`Sending payload ${JSON.stringify(data)}`);
-    const req = new XMLHttpRequest();
-    req.open('POST', url, true);
-    req.setRequestHeader('Content-Type', 'application/json');
-
-    req.onreadystatechange = () => {
-      if (req.readyState === 4) {
-        callback && callback(req.response);
-      }
-    };
-
-    req.send(JSON.stringify(data));
+    fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        body: JSON.stringify(data),
+      },
+    })
+      .then(resEvent => {
+        callback && callback(resEvent);
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   const collect = (type, params, uuid) => {
