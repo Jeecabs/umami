@@ -109,8 +109,13 @@ import { removeTrailingSlash } from '../lib/url';
 
   /* Handle events */
 
+  const addEvents = node => {
+    const elements = node.querySelectorAll(eventSelect);
+    Array.prototype.forEach.call(elements, addEvent);
+  };
+
   const addEvent = element => {
-    element.className.split(' ').forEach(className => {
+    (element.getAttribute('class') || '').split(' ').forEach(className => {
       if (!eventClass.test(className)) return;
 
       const [, type, value] = className.split('--');
@@ -126,7 +131,7 @@ import { removeTrailingSlash } from '../lib/url';
     mutations.forEach(mutation => {
       const element = mutation.target;
       addEvent(element);
-      element.querySelectorAll(eventSelect).forEach(addEvent);
+      addEvents(element);
     });
   };
 
@@ -166,18 +171,12 @@ import { removeTrailingSlash } from '../lib/url';
     history.replaceState = hook(history, 'replaceState', handlePush);
 
     const update = () => {
-      switch (document.readyState) {
-        /* DOM rendered, add event listeners */
-        case 'interactive': {
-          document.querySelectorAll(eventSelect).forEach(addEvent);
-          const observer = new MutationObserver(monitorMutate);
-          observer.observe(document, { childList: true, subtree: true });
-          break;
-        }
-        /* Page loaded, track our view */
-        case 'complete':
-          trackView();
-          break;
+      if (document.readyState === 'complete') {
+        addEvents(document);
+        trackView();
+
+        const observer = new MutationObserver(monitorMutate);
+        observer.observe(document, { childList: true, subtree: true });
       }
     };
     document.addEventListener('readystatechange', update, true);
