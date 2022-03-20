@@ -57,7 +57,7 @@
   },
   "dependencies": {
     "@fontsource/inter": "4.5.0",
-    "@prisma/client": "2.29.1",
+    "@prisma/client": "3.11.0",
     "@reduxjs/toolkit": "^1.6.1",
     "bcryptjs": "^2.4.3",
     "chalk": "^4.1.1",
